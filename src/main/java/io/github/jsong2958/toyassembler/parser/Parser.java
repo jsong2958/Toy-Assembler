@@ -89,6 +89,11 @@ public class Parser {
             return t;
         }
 
+        if (line.toUpperCase().equals("HALT")) {
+            t.setOp("HALT");
+            return t;
+        }
+
 
         String[] split4 = line.split("\\s+"); //space character
         if (split4.length != 2) throw new SyntaxError("SyntaxError at line " + lineNum + ": Invalid instruction format\n" + originalLine);

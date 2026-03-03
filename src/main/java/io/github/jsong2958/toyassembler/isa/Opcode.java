@@ -23,6 +23,7 @@ public enum Opcode {
     POP(1, 1, 0b1000),
     CALL(1, 2, 0b1001),
     RET(0, 1, 0b1010),
+    HALT(0, 1, 0b1010),
     SUB_REG_REG(2, 1, 0b1011),
     CMP(2, 1, 0b1100),
     JE(1, 2, 0b1101),

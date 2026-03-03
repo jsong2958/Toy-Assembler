@@ -15,7 +15,7 @@ import java.util.List;
 public class Main {
     public static void main(String[] args) {
         if (args.length != 1 || !(args[0].split("\\.")[1].equals("tsm"))) {
-            System.out.println("Usage: java -jar toyassembler.jar [filename.tsm]");
+            System.out.println("Usage: java -jar toyassembler.jar [path/to/file.tsm]");
             return;
         }
 

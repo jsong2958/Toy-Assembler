@@ -32,10 +32,9 @@ public class Assembler {
             }
 
 
-            case RET ->  {
-                return encodeRet(opcode, t);
+            case RET, HALT ->  {
+                return encodeNoArg(opcode, t);
             }
-
 
         }
 
@@ -104,7 +103,7 @@ public class Assembler {
 
         if (opcode == Opcode.JNE) choice = 1;
 
-        byte code = (byte) (opcode.bits() << 4 | choice << 2);
+        byte code = (byte) (opcode.bits() << 4 | choice);
 
         return new byte[] {code, pc};
 
@@ -139,12 +138,14 @@ public class Assembler {
         return new byte[] {code, imm};
     }
 
-    private byte[] encodeRet(Opcode opcode, Token t) {
-        byte code = (byte) (opcode.bits() << 4);
+    private byte[] encodeNoArg(Opcode opcode, Token t) {
+        int choice = 0;
+        if (opcode == Opcode.HALT) choice = 1;
+
+        byte code = (byte) (opcode.bits() << 4 | choice);
 
         return new byte[] {code};
     }
-
 
 
 }
