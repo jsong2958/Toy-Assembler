@@ -25,9 +25,6 @@ fact:
     RET
 
 
-
-    
-
 fact_base:
     MOV 1, R0
     RET
