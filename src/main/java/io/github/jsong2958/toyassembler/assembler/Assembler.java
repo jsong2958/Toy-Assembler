@@ -27,13 +27,16 @@ public class Assembler {
                 return encodeJump(opcode, t, table);
             }
 
-            case MOV_IMM_REG, ADD_IMM_REG, AND_IMM_REG -> {
+            case MOV_IMM_REG, ADD_IMM_REG, AND_IMM_REG, SUB_IMM_REG -> {
                 return encodeImm(opcode, t);
             }
 
+            case PUSH, POP -> {
+                return encodePopPush(opcode, t);
+            }
 
             case RET, HALT ->  {
-                return encodeNoArg(opcode, t);
+                return encodeNoArg(opcode);
             }
 
         }
@@ -74,7 +77,7 @@ public class Assembler {
 
         }
 
-        Register dest = Register.valueOf(t.arg1());
+        Register dest = Register.valueOf(t.arg1().toUpperCase());
 
         byte code = (byte) (
                 opcode.bits() << 4 |
@@ -138,7 +141,18 @@ public class Assembler {
         return new byte[] {code, imm};
     }
 
-    private byte[] encodeNoArg(Opcode opcode, Token t) {
+    private byte[] encodePopPush(Opcode opcode, Token t) {
+        byte choice = 0;
+
+        if (opcode == Opcode.POP) choice = 1;
+
+        Register dest = Register.valueOf(t.arg1().toUpperCase());
+
+        byte code = (byte) (opcode.bits() << 4 | choice << 2 | dest.bits());
+        return new byte[] {code};
+    }
+
+    private byte[] encodeNoArg(Opcode opcode) {
         int choice = 0;
         if (opcode == Opcode.HALT) choice = 1;
 
