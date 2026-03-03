@@ -1,0 +1,41 @@
+main:
+    MOV 7, R0       ; n = 7
+    CALL fib        ; Store fib(7) in R0
+    MOV 255, R1
+    WRITE R0, R1    ; Write fib(7) to memory address 0xE9
+    HALT
+fib:
+    MOV 0, R2
+    CMP R0, R2      ; Base case (n = 0)
+    JE fib_zero     ; Store in R0
+
+    MOV 1, R2
+    CMP R0, R2      ; Base case (n = 1)
+    JE fib_one      ; Store in R0
+
+    ; n > 1 - Recursive case
+
+    PUSH R0         ; Save n
+    SUB 1, R0
+    CALL fib
+    MOV R0, R3      ; R3 = fib(n-1)
+
+    POP R0          ; Restore n
+
+    PUSH R3         ; Save fib(n-1)
+    SUB 2, R0
+    CALL fib        ; R0 = fib(n-2)
+
+    POP R3          ; Restore fib(n-1)
+    ADD R3, R0      ; R0 = fib(n-1) + f(n-2)
+    RET
+
+fib_zero:
+    MOV 0, R0
+    RET
+
+fib_one:
+    MOV 1, R0
+    RET
+
+    
