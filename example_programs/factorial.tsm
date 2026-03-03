@@ -1,0 +1,48 @@
+main:
+    MOV 5, R0       ; Calculate 5!
+    CALL fact
+    MOV 255, R1
+    WRITE R0, R1    ; Write 5! to memory address 255
+    HALT
+
+fact:
+    ; Base case (n = 1)
+
+    MOV 1, R1;
+    CMP R0, R1;
+    JE fact_base
+    
+    ; Recursive case
+    PUSH R0;        ; Save n
+    SUB 1, R0
+    CALL fact       ; fact(n-1)
+    MOV R0, R1      ; R1 = fact(n-1)
+
+    POP R0          ; Restore n
+    CALL multiply   ; n * fact(n-1)
+
+    MOV R2, R0
+    RET
+
+
+
+    
+
+fact_base:
+    MOV 1, R0
+    RET
+
+multiply:       ; Store product in R2
+    MOV 0, R3
+    MOV 0, R2
+loop:
+    CMP R3, R1
+    JE done
+
+    ADD R0, R2
+    ADD 1, R3
+    JMP loop
+done:
+    RET
+    
+    
