@@ -1,8 +1,9 @@
 # Toy Assembler
 **Custom Toy Assembly language with common opcodes MOV, ADD, CALL, CMP, etc**
 
+ - [Full list of supported instructions](./OPCODES.md)
  - [Browser-based memory simulation](https://jsong2958.github.io/) 
-  - [Example programs](./example_programs)
+ - [Example programs](./example_programs)
 
 ## Usage
 
